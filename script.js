@@ -16,3 +16,6 @@ function changeColor() {
     let div = document.getElementById(divC).style.backgroundColor = getRandomColor();
   }
 }
+let button = document.getElementById("button-random-color");
+
+button.addEventListener("click", changeColor)
