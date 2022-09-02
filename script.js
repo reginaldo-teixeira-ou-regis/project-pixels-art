@@ -12,23 +12,28 @@ function getRandomColor() {
 
 document.getElementById("c1").style.backgroundColor = "black";
 
-function changeColor() {
+function saveChangeColor(savedColor) {
+  saveStorage = [];
   for (let cont = 1; cont < 4; cont += 1) {
     let idDiv = "c" + (cont + 1);
-    document.getElementById(idDiv).style.backgroundColor = getRandomColor();
+    document.getElementById(idDiv).style.backgroundColor = savedColor[cont - 1];
+    saveStorage.push(document.getElementById(idDiv).style.backgroundColor);
   }
+  localStorage.colorPalette = JSON.stringify(saveStorage);
+}
+
+function changeColor() {
+  saveStorage = [getRandomColor(), getRandomColor(), getRandomColor()];
+  saveChangeColor(saveStorage);
 }
 
 let button = document.getElementById('button-random-color');
 button.addEventListener('click', changeColor);
-//button.addEventListener('click', saveColors);
 
 function saveColors() {
   if (localStorage.colorPalette) {
     saveStorage = JSON.parse(localStorage.getItem('colorPalette'));
   }
-
-  let newColor = changeColor();
-  saveStorage.push(newColor);
-  localStorage.colorPalette = JSON.stringify(saveStorage);
+  saveChangeColor(saveStorage);
 }
+saveColors();
