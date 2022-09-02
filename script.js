@@ -1,3 +1,5 @@
+let saveStorage = [];
+
 function getRandomColor() {
   let hexadecimal = '0123456789ABCDEF';
   let color = '#';
@@ -11,17 +13,22 @@ function getRandomColor() {
 document.getElementById("c1").style.backgroundColor = "black";
 
 function changeColor() {
-  for(let cont = 1; cont < 4; cont += 1) {
-    let divC = "c" + (cont + 1);
-    let collors = document.getElementById(divC).style.backgroundColor = getRandomColor();
+  for (let cont = 1; cont < 4; cont += 1) {
+    let idDiv = "c" + (cont + 1);
+    document.getElementById(idDiv).style.backgroundColor = getRandomColor();
   }
 }
 
-let button = document.getElementById("button-random-color");
-button.addEventListener("click", changeColor);
-button.addEventListener("click", saveColors);
+let button = document.getElementById('button-random-color');
+button.addEventListener('click', changeColor);
+//button.addEventListener('click', saveColors);
 
 function saveColors() {
-  localStorage.colorPalette = document.getElementById("button-random-color").
-}
+  if (localStorage.colorPalette) {
+    saveStorage = JSON.parse(localStorage.getItem('colorPalette'));
+  }
 
+  let newColor = changeColor();
+  saveStorage.push(newColor);
+  localStorage.colorPalette = JSON.stringify(saveStorage);
+}
