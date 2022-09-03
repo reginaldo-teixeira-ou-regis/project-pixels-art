@@ -37,3 +37,13 @@ function saveColors() {
   saveChangeColor(saveStorage);
 }
 saveColors();
+
+function createPainting() {
+  let pixelBoard = document.getElementById("pixel-board");
+  for(let i = 1; i <= 25; i += 1) {
+    let pixelsLine = document.createElement("div");
+    pixelsLine.classList.add("pixel");
+    pixelBoard.appendChild(pixelsLine);
+  }
+};
+createPainting();
