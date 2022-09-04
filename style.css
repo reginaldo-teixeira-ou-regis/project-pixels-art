@@ -36,18 +36,6 @@ body {
   cursor: pointer;
 }
 
-#c2 {
-  background-color: red;
-}
-
-#c3 {
-  background-color: rgb(23, 214, 33);
-}
-
-#c4 {
-  background-color: rgb(4, 19, 223);
-}
-
 #pixel-board {
   background-color: black;
   display: grid;

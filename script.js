@@ -31,10 +31,14 @@ let button = document.getElementById('button-random-color');
 button.addEventListener('click', changeColor);
 
 function saveColors() {
-  if (localStorage.colorPalette) {
+  console.log('antes do if');
+  if (localStorage.colorPalette !== undefined) {
+    console.log('depois do if');
+    console.log(typeof localStorage.colorPalette);
     saveStorage = JSON.parse(localStorage.getItem('colorPalette'));
+    return saveChangeColor(saveStorage);
   }
-  saveChangeColor(saveStorage);
+  changeColor();
 }
 saveColors();
 
@@ -68,5 +72,4 @@ document.getElementById("c4").addEventListener("click", moveSelected);
 function selectColor(selectBlock) {
   let selectedColor = document.querySelector(".selected").style.backgroundColor;
   selectBlock.target.style.backgroundColor = selectedColor;
-  console.log("Passei aqui");
 }
