@@ -49,9 +49,10 @@ function createPainting() {
     pixelsBlock = document.createElement('div');
     pixelsBlock.classList.add('pixel');
     pixelsBlock.addEventListener('click', selectColor);
+    pixelBoard.style.backgroundColor = 'white';
     pixelBoard.appendChild(pixelsBlock);
   }
-};
+}
 createPainting();
 
 function moveSelected(event) {
@@ -72,14 +73,39 @@ document.getElementById('c4').addEventListener('click', moveSelected);
 function selectColor(selectBlock) {
   let selectedColor = document.querySelector('.selected').style.backgroundColor;
   selectBlock.target.style.backgroundColor = selectedColor;
+  savePaintingBlocks();
 }
 
 function clearBlocks() {
-  let pixelQuadro = document.getElementsByClassName('pixel');
+  let paintingBlocks = document.getElementsByClassName('pixel');
   for(let i = 0; i < 25; i += 1) {
-    pixelQuadro[i].style.backgroundColor = 'white';
+    paintingBlocks[i].style.backgroundColor = 'white';
   }
 }
 
 let buttonClear = document.getElementById('clear-board');
 buttonClear.addEventListener('click', clearBlocks);
+
+let arrayPaintingBlocks = [];
+
+function savePaintingBlocks() {
+  arrayPaintingBlocks = [];
+  let paintingBlocks = document.getElementsByClassName('pixel');
+  for(let i = 0; i < 25; i += 1) {
+    arrayPaintingBlocks.push(paintingBlocks[i].style.backgroundColor);
+    console.log(paintingBlocks[i].style.backgroundColor);
+  }
+  console.log(arrayPaintingBlocks);
+  localStorage.pixelBoard = JSON.stringify(arrayPaintingBlocks);
+}
+
+function loadPaintingBlocks() {
+  let paintingBlocks = document.getElementsByClassName('pixel');
+  if(localStorage.pixelBoard !== undefined) {
+    arrayPaintingBlocks = JSON.parse(localStorage.getItem('pixelBoard'));
+    for(let i = 0; i < 25; i += 1) {
+      paintingBlocks[i].style.backgroundColor = arrayPaintingBlocks[i];
+    }
+  }
+}
+loadPaintingBlocks();
