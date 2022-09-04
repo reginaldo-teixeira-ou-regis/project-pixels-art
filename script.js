@@ -40,10 +40,44 @@ saveColors();
 
 function createPainting() {
   let pixelBoard = document.getElementById("pixel-board");
+  let pixelsBlock;
   for(let i = 1; i <= 25; i += 1) {
-    let pixelsLine = document.createElement("div");
-    pixelsLine.classList.add("pixel");
-    pixelBoard.appendChild(pixelsLine);
+    pixelsBlock = document.createElement("div");
+    pixelsBlock.classList.add("pixel");
+    pixelsBlock.addEventListener("click", selectColor);
+    pixelBoard.appendChild(pixelsBlock);
   }
 };
 createPainting();
+
+function moveSelected(event) {
+  let select = document.querySelector(".selected");
+  let color = event.target;
+  if(select === color) {
+    console.log("Passei no if?");
+
+  }
+}
+document.getElementById("c1").addEventListener("click", moveSelected);
+document.getElementById("c2").addEventListener("click", moveSelected);
+document.getElementById("c3").addEventListener("click", moveSelected);
+document.getElementById("c4").addEventListener("click", moveSelected);
+
+function selectColor(selectBlock) {
+  //console.log(selectBlock.target);
+  //selectBlock.target;
+  //console.log("Passei aqui");
+}
+/* function comparePalette() {
+  let class = document.getElementsByClassName("color");
+  let selectedClick = document.querySelector(".selected");
+  if(!class) {
+    return null;
+  }
+  if(selectedClick) {
+    selectedClick.remove();
+  }
+  class = document.createElement("className");
+  class.className = "selected";
+  class.appendChild(className)
+} */
