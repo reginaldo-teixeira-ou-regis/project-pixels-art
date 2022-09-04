@@ -10,12 +10,12 @@ function getRandomColor() {
   return color;
 }
 
-document.getElementById("c1").style.backgroundColor = "black";
+document.getElementById('c1').style.backgroundColor = 'black';
 
 function saveChangeColor(savedColor) {
   saveStorage = [];
   for (let cont = 1; cont < 4; cont += 1) {
-    let idDiv = "c" + (cont + 1);
+    let idDiv = 'c' + (cont + 1);
     document.getElementById(idDiv).style.backgroundColor = savedColor[cont - 1];
     saveStorage.push(document.getElementById(idDiv).style.backgroundColor);
   }
@@ -31,10 +31,10 @@ let button = document.getElementById('button-random-color');
 button.addEventListener('click', changeColor);
 
 function saveColors() {
-  console.log('antes do if');
+  //console.log('antes do if');
   if (localStorage.colorPalette !== undefined) {
-    console.log('depois do if');
-    console.log(typeof localStorage.colorPalette);
+    //console.log('depois do if');
+    //console.log(typeof localStorage.colorPalette);
     saveStorage = JSON.parse(localStorage.getItem('colorPalette'));
     return saveChangeColor(saveStorage);
   }
@@ -43,33 +43,43 @@ function saveColors() {
 saveColors();
 
 function createPainting() {
-  let pixelBoard = document.getElementById("pixel-board");
+  let pixelBoard = document.getElementById('pixel-board');
   let pixelsBlock;
   for(let i = 1; i <= 25; i += 1) {
-    pixelsBlock = document.createElement("div");
-    pixelsBlock.classList.add("pixel");
-    pixelsBlock.addEventListener("click", selectColor);
+    pixelsBlock = document.createElement('div');
+    pixelsBlock.classList.add('pixel');
+    pixelsBlock.addEventListener('click', selectColor);
     pixelBoard.appendChild(pixelsBlock);
   }
 };
 createPainting();
 
 function moveSelected(event) {
-  let select = document.querySelector(".selected");
+  let select = document.querySelector('.selected');
   let color = event.target;
   if(select) {
     select.classList.remove('selected');
-    //console.log("removeu o select");
+    //console.log('removeu o select');
   }
   color.classList.add('selected');
-  //console.log("adicionou selected");
+  //console.log('adicionou selected');
 }
-document.getElementById("c1").addEventListener("click", moveSelected);
-document.getElementById("c2").addEventListener("click", moveSelected);
-document.getElementById("c3").addEventListener("click", moveSelected);
-document.getElementById("c4").addEventListener("click", moveSelected);
+document.getElementById('c1').addEventListener('click', moveSelected);
+document.getElementById('c2').addEventListener('click', moveSelected);
+document.getElementById('c3').addEventListener('click', moveSelected);
+document.getElementById('c4').addEventListener('click', moveSelected);
 
 function selectColor(selectBlock) {
-  let selectedColor = document.querySelector(".selected").style.backgroundColor;
+  let selectedColor = document.querySelector('.selected').style.backgroundColor;
   selectBlock.target.style.backgroundColor = selectedColor;
 }
+
+function clearBlocks() {
+  let pixelQuadro = document.getElementsByClassName('pixel');
+  for(let i = 0; i < 25; i += 1) {
+    pixelQuadro[i].style.backgroundColor = 'white';
+  }
+}
+
+let buttonClear = document.getElementById('clear-board');
+buttonClear.addEventListener('click', clearBlocks);
