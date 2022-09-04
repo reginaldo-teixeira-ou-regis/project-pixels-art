@@ -53,10 +53,12 @@ createPainting();
 function moveSelected(event) {
   let select = document.querySelector(".selected");
   let color = event.target;
-  if(select === color) {
-    console.log("Passei no if?");
-
+  if(select) {
+    select.classList.remove('selected');
+    //console.log("removeu o select");
   }
+  color.classList.add('selected');
+  //console.log("adicionou selected");
 }
 document.getElementById("c1").addEventListener("click", moveSelected);
 document.getElementById("c2").addEventListener("click", moveSelected);
@@ -64,20 +66,10 @@ document.getElementById("c3").addEventListener("click", moveSelected);
 document.getElementById("c4").addEventListener("click", moveSelected);
 
 function selectColor(selectBlock) {
-  //console.log(selectBlock.target);
+  console.log(selectBlock.target);
   //selectBlock.target;
-  //console.log("Passei aqui");
+  console.log("Passei aqui");
 }
-/* function comparePalette() {
-  let class = document.getElementsByClassName("color");
-  let selectedClick = document.querySelector(".selected");
-  if(!class) {
-    return null;
-  }
-  if(selectedClick) {
-    selectedClick.remove();
-  }
-  class = document.createElement("className");
-  class.className = "selected";
-  class.appendChild(className)
-} */
+function coloringBlock() {
+
+}
