@@ -66,10 +66,7 @@ document.getElementById("c3").addEventListener("click", moveSelected);
 document.getElementById("c4").addEventListener("click", moveSelected);
 
 function selectColor(selectBlock) {
-  console.log(selectBlock.target);
-  //selectBlock.target;
+  let selectedColor = document.querySelector(".selected").style.backgroundColor;
+  selectBlock.target.style.backgroundColor = selectedColor;
   console.log("Passei aqui");
-}
-function coloringBlock() {
-
 }
