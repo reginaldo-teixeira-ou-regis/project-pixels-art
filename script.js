@@ -42,18 +42,18 @@ function saveColors() {
 }
 saveColors();
 
-function createPainting() {
+function createPainting(value) {
   let pixelBoard = document.getElementById('pixel-board');
   let pixelsBlock;
-  for(let i = 1; i <= 25; i += 1) {
+  for(let i = 0; i < value; i += 1) {
     pixelsBlock = document.createElement('div');
     pixelsBlock.classList.add('pixel');
     pixelsBlock.addEventListener('click', selectColor);
-    pixelBoard.style.backgroundColor = 'white';
+    pixelsBlock.style.backgroundColor = 'white';
     pixelBoard.appendChild(pixelsBlock);
   }
 }
-createPainting();
+createPainting(25);
 
 function moveSelected(event) {
   let select = document.querySelector('.selected');
@@ -88,15 +88,43 @@ buttonClear.addEventListener('click', clearBlocks);
 
 let arrayPaintingBlocks = [];
 
+const buttonVqv = document.getElementById('generate-board');
+
 function savePaintingBlocks() {
   arrayPaintingBlocks = [];
   let paintingBlocks = document.getElementsByClassName('pixel');
   for(let i = 0; i < 25; i += 1) {
     arrayPaintingBlocks.push(paintingBlocks[i].style.backgroundColor);
-    console.log(paintingBlocks[i].style.backgroundColor);
   }
-  console.log(arrayPaintingBlocks);
   localStorage.pixelBoard = JSON.stringify(arrayPaintingBlocks);
+}
+
+function resizeBoard() {
+  const inputValue = document.getElementById('board-size').value;
+  outroParam = inputValue ** 2;
+  if (inputValue === '' || inputValue <= 0) {
+    alert('Board inválido!');
+    return;
+  }
+  removeBlocks();
+  createPainting(outroParam);
+
+  console.log(inputValue);
+  console.log('input');
+  document.getElementById(
+    'pixel-board'
+  ).style.gridTemplateColumns = `repeat(${inputValue}, 1fr)`;
+  document.getElementById(
+    'pixel-board'
+  ).style.gridTemplateRows = `repeat(${inputValue}, 1fr)`;
+}
+
+function removeBlocks() {
+  let paiTable = document.getElementById("pixel-board");
+  let pixel = document.getElementsByClassName("pixel");
+  for(let index = pixel.length - 1; index >= 0; index -= 1) {
+    paiTable.removeChild(pixel[index]);
+  }
 }
 
 function loadPaintingBlocks() {
@@ -109,3 +137,4 @@ function loadPaintingBlocks() {
   }
 }
 loadPaintingBlocks();
+buttonVqv.addEventListener("click", resizeBoard);
