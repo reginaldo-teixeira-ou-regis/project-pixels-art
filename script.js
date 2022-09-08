@@ -110,27 +110,27 @@ function resizeBoard() {
   if (inputValue < 5) {
     removeBlocks();
     createPainting(25);
-    mudarCss(5);
+    reassignCSS(5);
     return;
   }
   if (inputValue > 50) {
     removeBlocks();
     createPainting(limite50);
-    mudarCss(50);
+    reassignCSS(50);
     return;
   }
   removeBlocks();
   createPainting(outroParam);
-  mudarCss(inputValue);
+  reassignCSS(inputValue);
 }
 
-function mudarCss (parametro) {
+function reassignCSS (rowsColumns) {
   document.getElementById(
     'pixel-board'
-  ).style.gridTemplateColumns = `repeat(${parametro}, 1fr)`;
+  ).style.gridTemplateColumns = `repeat(${rowsColumns}, 1fr)`;
   document.getElementById(
     'pixel-board'
-  ).style.gridTemplateRows = `repeat(${parametro}, 1fr)`;
+  ).style.gridTemplateRows = `repeat(${rowsColumns}, 1fr)`;
 }
 
 function removeBlocks() {
