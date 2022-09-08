@@ -49,8 +49,8 @@ body {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
-  height: 210px;
-  width: 210px;
+  height: auto;
+  width: auto;
 }
 
 .pixel {

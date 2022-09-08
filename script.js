@@ -102,21 +102,35 @@ function savePaintingBlocks() {
 function resizeBoard() {
   const inputValue = document.getElementById('board-size').value;
   outroParam = inputValue ** 2;
+  const limite50 = 50 ** 2;
   if (inputValue === '' || inputValue <= 0) {
     alert('Board inválido!');
     return;
   }
+  if (inputValue < 5) {
+    removeBlocks();
+    createPainting(25);
+    mudarCss(5);
+    return;
+  }
+  if (inputValue > 50) {
+    removeBlocks();
+    createPainting(limite50);
+    mudarCss(50);
+    return;
+  }
   removeBlocks();
   createPainting(outroParam);
+  mudarCss(inputValue);
+}
 
-  console.log(inputValue);
-  console.log('input');
+function mudarCss (parametro) {
   document.getElementById(
     'pixel-board'
-  ).style.gridTemplateColumns = `repeat(${inputValue}, 1fr)`;
+  ).style.gridTemplateColumns = `repeat(${parametro}, 1fr)`;
   document.getElementById(
     'pixel-board'
-  ).style.gridTemplateRows = `repeat(${inputValue}, 1fr)`;
+  ).style.gridTemplateRows = `repeat(${parametro}, 1fr)`;
 }
 
 function removeBlocks() {
