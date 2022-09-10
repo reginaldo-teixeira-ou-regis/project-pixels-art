@@ -1,5 +1,4 @@
 let arraySaveStorage = [];
-let arraySaveSizeStorage = [];
 let arrayPaintingBlocks = [];
 document.getElementById('c1').style.backgroundColor = 'black';
 
@@ -48,7 +47,7 @@ function createPainting(value) {
     pixelBoard.appendChild(pixelsBlock);
   }
 }
-createPainting(25);
+/* createPainting(25); */
 
 function moveSelected(event) {
   const select = document.querySelector('.selected');
@@ -80,7 +79,7 @@ function clearBlocks() {
 function savePaintingBlocks() {
   arrayPaintingBlocks = [];
   const paintingBlocks = document.getElementsByClassName('pixel');
-  for (let i = 0; i < 25; i += 1) {
+  for (let i = 0; i < paintingBlocks.length; i += 1) {
     arrayPaintingBlocks.push(paintingBlocks[i].style.backgroundColor);
   }
   localStorage.pixelBoard = JSON.stringify(arrayPaintingBlocks);
@@ -88,26 +87,27 @@ function savePaintingBlocks() {
 
 // eslint-disable-next-line max-lines-per-function
 function resizeBoard() {
-  const inputValue = document.getElementById('board-size').value;
-  const inputxInput = inputValue ** 2;
-  const input50x50 = 50 ** 2;
+  let inputValue = document.getElementById('board-size').value;
   if (inputValue === '' || inputValue <= 0) {
     alert('Board inválido!');
   } else if (inputValue < 5) {
+    inputValue = 5;
     removeBlocks();
-    createPainting(25);
-    reassignCSS(5);
+    createPainting(inputValue ** 2);
+    reassignCSS(inputValue);
     loadPaintingBlocks();
   } else if (inputValue > 50) {
+    inputValue = 50;
     removeBlocks();
-    createPainting(input50x50);
-    reassignCSS(50);
+    createPainting(inputValue ** 2);
+    reassignCSS(inputValue);
     loadPaintingBlocks();
   } else { removeBlocks();
-    createPainting(inputxInput);
+    createPainting(inputValue ** 2);
     reassignCSS(inputValue);
     loadPaintingBlocks();
   }
+  localStorage.boardSize = JSON.stringify(inputValue);
 }
 
 function reassignCSS(rowsColumns) {
@@ -123,36 +123,28 @@ function removeBlocks() {
   }
 }
 
-/* function loadPaintingBlocks() {
+function loadPaintingBlocks() {
   let paintingBlocks = document.getElementsByClassName('pixel');
-  if(localStorage.pixelBoard !== undefined) {
+  if (localStorage.pixelBoard !== undefined) {
     arrayPaintingBlocks = JSON.parse(localStorage.getItem('pixelBoard'));
-    for(let i = 0; i < 25; i += 1) {
+    for (let i = 0; i < paintingBlocks.length; i += 1) {
       paintingBlocks[i].style.backgroundColor = arrayPaintingBlocks[i];
     }
   }
 }
-loadPaintingBlocks(); */
 
-function saveSizeTable() {
-  arraySaveSizeStorage = [];
-  const paintingBlocks = document.getElementsByClassName('pixel');
-  for (let i = 0; i < paintingBlocks.length; i += 1) {
-    arraySaveSizeStorage.push(paintingBlocks[i].style.backgroundColor);
-  }
-  localStorage.boardSize = JSON.stringify(arraySaveSizeStorage);
-}
-
-function loadPaintingBlocks() {
-  const pixelBlocks = document.getElementsByClassName('pixel');
-  if (localStorage.boardSize !== undefined) {
-    arraySaveSizeStorage = JSON.parse(localStorage.getItem('boardSize'));
-    for (let i = 0; i < pixelBlocks.length; i += 1) {
-      pixelBlocks[i].style.backgroundColor = arraySaveSizeStorage[i];
-    }
+function loadSizeTable() {
+  if (localStorage.boardSize) {
+    let boardSize = JSON.parse(localStorage.getItem('boardSize'));
+    createPainting(boardSize ** 2);
+    reassignCSS(boardSize);
+  } else {
+    createPainting(25);
+    reassignCSS(5);
   }
 }
 
+loadSizeTable();
 loadPaintingBlocks();
 
 const button = document.getElementById('button-random-color');
