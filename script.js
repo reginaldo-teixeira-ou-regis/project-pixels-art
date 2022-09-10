@@ -47,7 +47,6 @@ function createPainting(value) {
     pixelBoard.appendChild(pixelsBlock);
   }
 }
-/* createPainting(25); */
 
 function moveSelected(event) {
   const select = document.querySelector('.selected');
@@ -66,7 +65,6 @@ function selectColor(selectBlock) {
   const selectedColor = document.querySelector('.selected').style.backgroundColor;
   selectBlock.target.style.backgroundColor = selectedColor;
   savePaintingBlocks();
-  saveSizeTable();
 }
 
 function clearBlocks() {
@@ -85,12 +83,13 @@ function savePaintingBlocks() {
   localStorage.pixelBoard = JSON.stringify(arrayPaintingBlocks);
 }
 
-// eslint-disable-next-line max-lines-per-function
 function resizeBoard() {
   let inputValue = document.getElementById('board-size').value;
   if (inputValue === '' || inputValue <= 0) {
     alert('Board inválido!');
-  } else if (inputValue < 5) {
+  }
+
+  if (inputValue < 5) {
     inputValue = 5;
     removeBlocks();
     createPainting(inputValue ** 2);
